@@ -1,0 +1,25 @@
+version: "3.9"
+
+
+services:
+  api:
+    container_name: api
+    image: parseplatform/parse-server:latest
+    volumes:
+      - ./cloud:/parse-server/cloud
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - "4000:1337"
+
+  dashboard:
+    container_name: dashboard
+    image: parseplatform/parse-dashboard:latest
+    volumes:
+      - ./config/dashboard-config.json:/src/Parse-Dashboard/parse-dashboard-config.json
+    restart: always
+    env_file:
+      - .env.dashboard
+    ports:
+      - "4001:4040"
